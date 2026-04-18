@@ -1,0 +1,13 @@
+# ML dependencies for Tier 2 (FinBERT + Longformer) training
+# Install with: pip install -r requirements-ml.txt
+# Install on top of the existing requirements.txt
+#
+# Note: torch install is platform-specific. For CUDA 12.1 on Windows/Linux:
+#   pip install torch --index-url https://download.pytorch.org/whl/cu121
+# Then install the rest from this file.
+
+torch>=2.2.0
+transformers>=4.40.0
+accelerate>=0.30.0
+scikit-learn>=1.4.0
+scipy>=1.12.0
