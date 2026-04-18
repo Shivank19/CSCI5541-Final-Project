@@ -95,12 +95,15 @@ MODEL_REGISTRY = {
         "grad_checkpointing": False,
     },
     # --- Stronger modern encoder (likely strongest-performing general LM) ---
+    # NOTE: DeBERTa-v3 family is numerically sensitive. bf16 produces NaN logits
+    # on some sequence lengths. Force fp32 with supports_bf16=False.
     "deberta-v3-base": {
         "hf_name": "microsoft/deberta-v3-base",
         "max_length": 512,
         "per_device_batch_size": 8,
         "grad_accum_steps": 1,
         "grad_checkpointing": False,
+        "supports_bf16": False,
     },
     # --- Very small / very fast baseline ---
     "deberta-v3-small": {
@@ -109,6 +112,7 @@ MODEL_REGISTRY = {
         "per_device_batch_size": 16,
         "grad_accum_steps": 1,
         "grad_checkpointing": False,
+        "supports_bf16": False,
     },
     # --- Alternative finance-specific models (direct FinBERT comparison) ---
     "finbert-tone": {
@@ -125,6 +129,7 @@ MODEL_REGISTRY = {
         "per_device_batch_size": 2,
         "grad_accum_steps": 4,
         "grad_checkpointing": True,
+        "supports_bf16": False,
     },
     "bert-large": {
         "hf_name": "bert-large-uncased",
@@ -479,6 +484,14 @@ def eval_loader(model, loader, device, amp_dtype):
             all_labels.extend(batch["labels"].cpu().numpy().tolist())
     probs_arr = np.asarray(all_probs)
     labels_arr = np.asarray(all_labels)
+    # Guard against NaN in predictions (seen with DeBERTa-v3 + bf16). If the
+    # model produced NaNs, we substitute 0.5 so downstream metrics report
+    # chance-level performance instead of raising an unhelpful sklearn error.
+    nan_mask = np.isnan(probs_arr)
+    if nan_mask.any():
+        print(f"  [warn] {int(nan_mask.sum())}/{len(probs_arr)} predictions "
+              f"were NaN; replacing with 0.5 (chance)")
+        probs_arr = np.where(nan_mask, 0.5, probs_arr)
     return compute_metrics(labels_arr, probs_arr), probs_arr, labels_arr
 
 
@@ -565,6 +578,14 @@ def parse_args() -> TrainConfig:
     if a.output_dir is None:
         a.output_dir = f"runs/{a.model}_{a.condition}_s{a.seed}"
 
+    # Honor per-model bf16 support. DeBERTa-v3 and similar models declare
+    # supports_bf16=False because bf16 produces NaN logits on them.
+    # User-provided --no_bf16 also disables.
+    model_supports_bf16 = spec.get("supports_bf16", True)
+    effective_bf16 = (not a.no_bf16) and model_supports_bf16
+    if (not a.no_bf16) and (not model_supports_bf16):
+        print(f"[info] {a.model} declares supports_bf16=False; forcing fp32.")
+
     return TrainConfig(
         model=a.model,
         condition=a.condition,
@@ -580,7 +601,7 @@ def parse_args() -> TrainConfig:
         patience=a.patience,
         data_dir=a.data_dir,
         output_dir=a.output_dir,
-        bf16=not a.no_bf16,
+        bf16=effective_bf16,
         smoke_test=a.smoke_test,
         freeze_backbone=a.freeze_backbone,
         truncation=a.truncation,
