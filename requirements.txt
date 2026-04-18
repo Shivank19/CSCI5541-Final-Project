@@ -43,3 +43,4 @@ tzdata==2025.3
 urllib3==2.6.3
 xxhash==3.6.0
 yarl==1.23.0
+shap==0.51.0
