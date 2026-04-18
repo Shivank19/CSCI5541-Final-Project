@@ -216,5 +216,19 @@ data/pipeline_report.txt
 
 
 ## Ahmet
-runs
 .vscode
+
+# Training runs: keep the metrics/predictions/configs, ignore logs and cached models
+runs/*.log
+runs/*.err
+runs/msi_*.log
+runs/msi_*.err
+runs/sweep_*.log
+*.ckpt
+*.pt
+*.bin
+*.safetensors
+
+# HuggingFace model cache (downloaded weights, don't commit)
+.cache/
+~/.cache/huggingface/

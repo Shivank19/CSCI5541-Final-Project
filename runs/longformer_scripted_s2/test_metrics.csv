@@ -1,0 +1,2 @@
+model,condition,seed,best_epoch,best_val_auroc,auroc,ap,f1,precision,recall,accuracy,tp,fp,tn,fn,n,n_pos,auroc_ci_lo,auroc_ci_hi
+longformer,scripted,2,2,0.64,0.6035353535353535,0.5414825069517073,0.0,0.0,0.0,0.6206896551724138,0,0,18,11,29,11,0.3912247474747475,0.8333333333333333
