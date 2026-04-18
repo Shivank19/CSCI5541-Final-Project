@@ -12,15 +12,13 @@
 $ErrorActionPreference = "Continue"
 
 $python = ".\.venv\Scripts\python.exe"
-$ablationSeeds = @(0, 1, 42)
+$ablationSeeds = @(0, 1, 42, 2024, 55, 123, 345, 789, 999, 111)
 $conditions    = @("full", "scripted", "qa")
 
 # Models safely fitting in 16GB, ordered fastest-first
 $localArchs = @(
     "deberta-v3-small",      # tiny, very fast
-    "finbert-tone",          # another finance model
-    "deberta-v3-base",       # strongest general encoder in base size
-    "bert-large"             # big but fits with checkpointing
+    "deberta-v3-base"       # strongest general encoder in base size
 )
 
 function Run-One($args_array, $outDir) {
