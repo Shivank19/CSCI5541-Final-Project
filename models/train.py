@@ -57,6 +57,7 @@ from models.common import (
 # ---------------------------------------------------------------------------
 
 MODEL_REGISTRY = {
+    # --- Core Tier 2 models (project proposal) ---
     "finbert": {
         "hf_name": "ProsusAI/finbert",
         "max_length": 512,
@@ -69,6 +70,67 @@ MODEL_REGISTRY = {
         "max_length": 4096,
         "per_device_batch_size": 1,
         "grad_accum_steps": 8,
+        "grad_checkpointing": True,
+    },
+    # --- General-purpose encoders (architecture ablation) ---
+    "roberta": {
+        "hf_name": "roberta-base",
+        "max_length": 512,
+        "per_device_batch_size": 8,
+        "grad_accum_steps": 1,
+        "grad_checkpointing": False,
+    },
+    "distilbert": {
+        "hf_name": "distilbert-base-uncased",
+        "max_length": 512,
+        "per_device_batch_size": 16,
+        "grad_accum_steps": 1,
+        "grad_checkpointing": False,
+    },
+    "bert": {
+        "hf_name": "bert-base-uncased",
+        "max_length": 512,
+        "per_device_batch_size": 8,
+        "grad_accum_steps": 1,
+        "grad_checkpointing": False,
+    },
+    # --- Stronger modern encoder (likely strongest-performing general LM) ---
+    "deberta-v3-base": {
+        "hf_name": "microsoft/deberta-v3-base",
+        "max_length": 512,
+        "per_device_batch_size": 8,
+        "grad_accum_steps": 1,
+        "grad_checkpointing": False,
+    },
+    # --- Very small / very fast baseline ---
+    "deberta-v3-small": {
+        "hf_name": "microsoft/deberta-v3-small",
+        "max_length": 512,
+        "per_device_batch_size": 16,
+        "grad_accum_steps": 1,
+        "grad_checkpointing": False,
+    },
+    # --- Alternative finance-specific models (direct FinBERT comparison) ---
+    "finbert-tone": {
+        "hf_name": "yiyanghkust/finbert-tone",
+        "max_length": 512,
+        "per_device_batch_size": 8,
+        "grad_accum_steps": 1,
+        "grad_checkpointing": False,
+    },
+    # --- Heavier models (MSI recommended) ---
+    "deberta-v3-large": {
+        "hf_name": "microsoft/deberta-v3-large",
+        "max_length": 512,
+        "per_device_batch_size": 2,
+        "grad_accum_steps": 4,
+        "grad_checkpointing": True,
+    },
+    "bert-large": {
+        "hf_name": "bert-large-uncased",
+        "max_length": 512,
+        "per_device_batch_size": 4,
+        "grad_accum_steps": 2,
         "grad_checkpointing": True,
     },
 }
@@ -92,6 +154,8 @@ class TrainConfig:
     output_dir: str
     bf16: bool
     smoke_test: bool
+    freeze_backbone: bool = False
+    truncation: str = "tail"
 
 
 # ---------------------------------------------------------------------------
@@ -114,22 +178,29 @@ def set_seed(seed: int) -> None:
 # ---------------------------------------------------------------------------
 
 class TranscriptDataset:
-    """Tail-biased truncation dataset.
+    """Truncation-aware tokenization dataset.
 
-    We tokenize each transcript and keep the LAST `max_length` tokens.
-    For FinBERT (512) this drops nearly all of the operator intro/prepared
-    remarks, surfacing the later Q&A content when condition='full'.
-    For Longformer (4096) full transcripts (median ~9800 tok) are still
-    truncated but scripted/qa subsections typically fit entirely.
+    Supports three truncation strategies:
+      - 'tail'   : keep LAST max_length tokens (default; end of call / Q&A)
+      - 'head'   : keep FIRST max_length tokens (opening of call / scripted start)
+      - 'middle' : keep middle max_length tokens (centered on the transcript)
+
+    Rationale: tail captures the end of the call (where spontaneous Q&A lives);
+    head captures the opening (most-rehearsed prepared remarks); middle captures
+    the transition zone between scripted and Q&A.
     """
 
-    def __init__(self, texts, labels, tokenizer, max_length: int):
+    def __init__(self, texts, labels, tokenizer, max_length: int,
+                 truncation: str = "tail"):
         import torch
         self.torch = torch
         self.texts = list(texts)
         self.labels = list(labels)
         self.tokenizer = tokenizer
         self.max_length = max_length
+        if truncation not in ("tail", "head", "middle"):
+            raise ValueError(f"truncation must be tail|head|middle, got {truncation}")
+        self.truncation = truncation
 
     def __len__(self):
         return len(self.texts)
@@ -138,14 +209,19 @@ class TranscriptDataset:
         text = self.texts[idx]
         label = int(self.labels[idx])
 
-        # Tokenize without truncation first so we can tail-bias.
-        # (No special tokens yet — we add them after we slice.)
+        # Tokenize without truncation so we can apply our own strategy.
         ids = self.tokenizer.encode(text, add_special_tokens=False)
 
         # Budget: max_length minus [CLS] + [SEP]
         budget = self.max_length - 2
         if len(ids) > budget:
-            ids = ids[-budget:]  # TAIL bias: keep the end of the call
+            if self.truncation == "tail":
+                ids = ids[-budget:]
+            elif self.truncation == "head":
+                ids = ids[:budget]
+            else:  # middle
+                start = (len(ids) - budget) // 2
+                ids = ids[start:start + budget]
 
         # Re-add special tokens
         cls_id = self.tokenizer.cls_token_id
@@ -219,6 +295,20 @@ def run_training(cfg: TrainConfig) -> Dict[str, float]:
     if cfg.grad_checkpointing:
         model.gradient_checkpointing_enable()
 
+    # Optional: freeze all backbone params, train only the classifier head.
+    # Useful as an ablation at small n to check whether fine-tuning the
+    # backbone actually helps vs. just training the classifier.
+    if cfg.freeze_backbone:
+        n_frozen = 0
+        n_trainable = 0
+        for name, p in model.named_parameters():
+            if "classifier" not in name:
+                p.requires_grad = False
+                n_frozen += p.numel()
+            else:
+                n_trainable += p.numel()
+        print(f"  [freeze_backbone] frozen={n_frozen:,} trainable={n_trainable:,}")
+
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model.to(device)
     print(f"  device: {device}")
@@ -227,11 +317,14 @@ def run_training(cfg: TrainConfig) -> Dict[str, float]:
 
     # ---- Datasets ----
     train_ds = TranscriptDataset(train_df.text, train_df.label,
-                                 tokenizer, cfg.max_length)
+                                 tokenizer, cfg.max_length,
+                                 truncation=cfg.truncation)
     val_ds = TranscriptDataset(val_df.text, val_df.label,
-                               tokenizer, cfg.max_length)
+                               tokenizer, cfg.max_length,
+                               truncation=cfg.truncation)
     test_ds = TranscriptDataset(test_df.text, test_df.label,
-                                tokenizer, cfg.max_length)
+                                tokenizer, cfg.max_length,
+                                truncation=cfg.truncation)
 
     train_loader = DataLoader(
         train_ds, batch_size=cfg.per_device_batch_size, shuffle=True,
@@ -452,6 +545,11 @@ def parse_args() -> TrainConfig:
                    help="Default: runs/{model}_{condition}_s{seed}")
     p.add_argument("--no_bf16", action="store_true",
                    help="Disable bf16 mixed precision.")
+    p.add_argument("--freeze_backbone", action="store_true",
+                   help="Freeze backbone; train only the classifier head.")
+    p.add_argument("--truncation", choices=["tail", "head", "middle"],
+                   default="tail",
+                   help="Truncation strategy for long transcripts.")
     p.add_argument("--smoke_test", action="store_true",
                    help="Use tiny subset (~16 rows) to verify the pipeline.")
 
@@ -484,6 +582,8 @@ def parse_args() -> TrainConfig:
         output_dir=a.output_dir,
         bf16=not a.no_bf16,
         smoke_test=a.smoke_test,
+        freeze_backbone=a.freeze_backbone,
+        truncation=a.truncation,
     )
 
 
