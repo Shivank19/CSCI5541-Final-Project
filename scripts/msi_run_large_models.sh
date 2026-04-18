@@ -11,19 +11,13 @@
 #SBATCH --mail-user=efe00002@umn.edu
 #SBATCH --mail-type=BEGIN,END,FAIL,TIME_LIMIT_80,TIME_LIMIT
 
-# Heavy architectures on MSI (too big or too slow for RTX 2000 local).
-# Safe to run in parallel with run_msi_longformer_max.sh -- separate job,
-# writes to separate run directories.
+# Heavy architectures on MSI (too big for RTX 2000 local).
+# NOTE: deberta-v3-large removed -- training produces NaN on V100 fp32,
+#       and chasing DeBERTa-v3 numerical issues is not worth the compute.
+#       Can be reinstated on A100 if time allows. See run_deberta_v3_large.sh
+#       if we decide to try it separately.
 #
-# Architectures included:
-#   - deberta-v3-large  (435M params)
-#   - bert-large        (340M params)
-#   - roberta-base      (for MSI-reproducibility cross-check, optional)
-#
-# Idempotent. ~5-8 min per run on V100. 3 archs x 3 seeds x 3 conditions = 27 runs.
-# Expected wall time: 2-4h. Fits well within 12h budget.
-#
-# Submit with:  sbatch scripts/run_msi_extra_archs.sh
+# Submit with:  sbatch scripts/msi_run_large_models.sh
 
 set -uo pipefail
 
@@ -45,7 +39,7 @@ PY
 
 export PYTHONUNBUFFERED=1
 
-ARCHS=(deberta-v3-large bert-large roberta)
+ARCHS=(bert-large roberta)
 SEEDS=(0 1 42)
 CONDITIONS=(full scripted qa)
 

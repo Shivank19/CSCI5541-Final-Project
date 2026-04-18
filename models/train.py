@@ -389,11 +389,16 @@ def run_training(cfg: TrainConfig) -> Dict[str, float]:
                 with torch.autocast(device_type="cuda", dtype=amp_dtype):
                     out = model(input_ids=batch["input_ids"],
                                 attention_mask=batch["attention_mask"])
-                    loss = loss_fn(out.logits, batch["labels"])
+                # Compute loss OUTSIDE autocast, in fp32. This avoids dtype
+                # mismatches between logits and class_weights (seen with
+                # DeBERTa-v3 on V100 + gradient checkpointing).
+                loss = loss_fn(out.logits.float(), batch["labels"])
             else:
                 out = model(input_ids=batch["input_ids"],
                             attention_mask=batch["attention_mask"])
-                loss = loss_fn(out.logits, batch["labels"])
+                # Cast defensively in case the model returned a non-fp32 dtype
+                # (some gradient-checkpointed models do this).
+                loss = loss_fn(out.logits.float(), batch["labels"])
 
             loss = loss / cfg.grad_accum_steps
             loss.backward()
