@@ -1,0 +1,2 @@
+model,condition,seed,best_epoch,best_val_auroc,auroc,ap,f1,precision,recall,accuracy,tp,fp,tn,fn,n,n_pos,auroc_ci_lo,auroc_ci_hi
+bert-large,full,2,1,0.5349999999999999,0.515151515151515,0.44481369250214425,0.55,0.3793103448275862,1.0,0.3793103448275862,11,18,0,0,29,11,0.2878787878787879,0.7474747474747475
