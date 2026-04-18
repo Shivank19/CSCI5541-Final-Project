@@ -99,6 +99,7 @@ else
     if try_install "relaxed ML stack (training subset only)" \
             "numpy<2.3" pandas scikit-learn scipy \
             transformers accelerate \
+            sentencepiece protobuf tiktoken \
             tqdm python-dotenv requests huggingface_hub; then
         STACK_SOURCE="relaxed"
     else
@@ -107,6 +108,17 @@ else
     fi
 fi
 echo "Using ML stack from: $STACK_SOURCE"
+
+# ---------------------------------------------------------------------------
+# Step 2.5: Tokenizer backends (idempotent, even if pinned install succeeded)
+# Required for DeBERTa-v3, XLM-R, T5, and related architectures.
+# ---------------------------------------------------------------------------
+echo ""
+echo "=============================================="
+echo " Step 2.5: Ensuring tokenizer backends"
+echo "=============================================="
+pip install --quiet sentencepiece protobuf tiktoken || \
+    echo "  (warning: tokenizer backend install failed; DeBERTa-v3 will not work)"
 
 # ---------------------------------------------------------------------------
 # Step 3: Verification
@@ -138,6 +150,9 @@ check("scipy")
 check("numpy")
 check("pandas")
 check("tqdm")
+check("sentencepiece")
+check("google.protobuf")
+check("tiktoken")
 
 import torch
 print()

@@ -4,7 +4,7 @@
 #SBATCH --gres=gpu:v100:1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=4
-#SBATCH --mem=32G
+#SBATCH --mem=64G
 #SBATCH --time=12:00:00
 #SBATCH --output=runs/msi_extra_%j.log
 #SBATCH --error=runs/msi_extra_%j.err

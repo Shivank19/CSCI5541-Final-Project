@@ -1,13 +1,29 @@
-# ML dependencies for Tier 2 (FinBERT + Longformer) training
+# ML dependencies for Tier 2 training.
 # Install with: pip install -r requirements-ml.txt
-# Install on top of the existing requirements.txt
 #
-# Note: torch install is platform-specific. For CUDA 12.1 on Windows/Linux:
-#   pip install torch --index-url https://download.pytorch.org/whl/cu121
-# Then install the rest from this file.
+# IMPORTANT: torch is NOT listed here because the right wheel depends on
+# your GPU / CUDA version. Install torch FIRST with the appropriate index:
+#
+#   CUDA 12.4 (preferred for torch 2.6+, required for FinBERT post-CVE):
+#     pip install torch --index-url https://download.pytorch.org/whl/cu124
+#
+#   CUDA 12.1 (older driver, torch 2.5.x):
+#     pip install torch --index-url https://download.pytorch.org/whl/cu121
+#
+#   CPU-only (not recommended, training takes days):
+#     pip install torch
+#
+# THEN install the rest from this file.
 
-torch>=2.2.0
 transformers>=4.40.0
 accelerate>=0.30.0
 scikit-learn>=1.4.0
 scipy>=1.12.0
+
+# Tokenizer backends required by some architectures:
+# - sentencepiece + protobuf: DeBERTa-v3 family, XLM-R, T5, mT5
+#   (protobuf is used to parse .spm model files; both must be installed)
+# - tiktoken: transformers tokenizer fallback for some new converters
+sentencepiece>=0.2.0
+protobuf>=3.20.0
+tiktoken>=0.5.0
