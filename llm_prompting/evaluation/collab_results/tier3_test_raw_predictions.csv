@@ -1,0 +1,147 @@
+transcript_id,ticker,true_label,pred_label,risk_score,rationale,parse_ok,model,prompt_name,condition,raw_response
+T00066,SITM,1,0,20,"The language is direct, ordinary, and not especially suspicious.",True,llama::llama3:70b,evasion,qa_text,"{""label"": 0, ""risk_score"": 20, ""rationale"": ""The language is direct, ordinary, and not especially suspicious.""}"
+C00102,CARG,0,0,20,"The language is direct, ordinary, and not especially suspicious.",True,llama::llama3:70b,evasion,qa_text,"{
+  ""label"": 0,
+  ""risk_score"": 20,
+  ""rationale"": ""The language is direct, ordinary, and not especially suspicious.""
+}"
+T00057,RH,1,1,80,"The executive's responses are evasive, indirect, and lack directness, indicating potential elevated risk of future financial restatement.",True,llama::llama3:70b,evasion,qa_text,"{""label"": 1, ""risk_score"": 80, ""rationale"": ""The executive's responses are evasive, indirect, and lack directness, indicating potential elevated risk of future financial restatement.""}"
+C00098,PAAS,0,0,20,"The language is direct, ordinary, and not especially suspicious.",True,llama::llama3:70b,evasion,qa_text,"{
+  ""label"": 0,
+  ""risk_score"": 20,
+  ""rationale"": ""The language is direct, ordinary, and not especially suspicious.""
+}"
+C00110,PPL,0,0,20,"The language is direct, ordinary, and not especially suspicious.",True,llama::llama3:70b,evasion,qa_text,"{
+  ""label"": 0,
+  ""risk_score"": 20,
+  ""rationale"": ""The language is direct, ordinary, and not especially suspicious.""
+}"
+C00128,AGO,0,0,20,"The language is direct, ordinary, and not especially suspicious.",True,llama::llama3:70b,evasion,qa_text,"{""label"": 0, ""risk_score"": 20, ""rationale"": ""The language is direct, ordinary, and not especially suspicious.""}"
+C00097,LCTX,0,1,80,The executive's response lacks directness and contains overly promotional language.,True,llama::llama3:70b,evasion,qa_text,"{""label"": 1, ""risk_score"": 80, ""rationale"": ""The executive's response lacks directness and contains overly promotional language.""}"
+C00124,CPT,0,0,20,"The language is direct, ordinary, and not especially suspicious.",True,llama::llama3:70b,evasion,qa_text,"{""label"": 0, ""risk_score"": 20, ""rationale"": ""The language is direct, ordinary, and not especially suspicious.""}"
+C00130,LDI,0,1,80,"The executive's responses are often evasive, hedged, and lack directness.",True,llama::llama3:70b,evasion,qa_text,"{
+""label"": 1,
+""risk_score"": 80,
+""rationale"": ""The executive's responses are often evasive, hedged, and lack directness.""
+}"
+C00119,IAS,0,0,30,"The language is direct and confident, with no obvious evasiveness or hedging.",True,llama::llama3:70b,evasion,qa_text,"{
+  ""label"": 0,
+  ""risk_score"": 30,
+  ""rationale"": ""The language is direct and confident, with no obvious evasiveness or hedging.""
+}"
+T00063,DH,1,0,30,"The language is direct, ordinary, and not especially suspicious.",True,llama::llama3:70b,evasion,qa_text,"{
+""label"": 0,
+""risk_score"": 30,
+""rationale"": ""The language is direct, ordinary, and not especially suspicious.""
+}"
+T00065,LOVE,1,0,30,"The language is direct and appreciative, but lacks specific details.",True,llama::llama3:70b,evasion,qa_text,"{
+  ""label"": 0,
+  ""risk_score"": 30,
+  ""rationale"": ""The language is direct and appreciative, but lacks specific details.""
+}"
+C00115,TEX,0,0,20,"The language is direct, ordinary, and not especially suspicious.",True,llama::llama3:70b,evasion,qa_text,"{""label"": 0, ""risk_score"": 20, ""rationale"": ""The language is direct, ordinary, and not especially suspicious.""}"
+T00062,CGC,1,1,80,The executive's response lacks directness and contains overly promotional language.,True,llama::llama3:70b,evasion,qa_text,"{""label"": 1, ""risk_score"": 80, ""rationale"": ""The executive's response lacks directness and contains overly promotional language.""}"
+C00113,CLF,0,1,80,The executive's response lacks directness and contains overly promotional language.,True,llama::llama3:70b,evasion,qa_text,"{""label"": 1, ""risk_score"": 80, ""rationale"": ""The executive's response lacks directness and contains overly promotional language.""}"
+T00050,FOUR,1,0,20,"The language is direct, ordinary, and not especially suspicious.",True,llama::llama3:70b,evasion,qa_text,"{""label"": 0, ""risk_score"": 20, ""rationale"": ""The language is direct, ordinary, and not especially suspicious.""}"
+C00131,ALGN,0,0,20,"The language is direct, ordinary, and not especially suspicious.",True,llama::llama3:70b,evasion,qa_text,"{""label"": 0, ""risk_score"": 20, ""rationale"": ""The language is direct, ordinary, and not especially suspicious.""}"
+T00060,LZ,1,0,30,The language is direct and ordinary with no suspicious evasiveness or hedging.,True,llama::llama3:70b,evasion,qa_text,"{""label"": 0, ""risk_score"": 30, ""rationale"": ""The language is direct and ordinary with no suspicious evasiveness or hedging.""}"
+C00116,CRSR,0,1,80,"Evasive and indirect responses from executives, particularly in addressing inventory reserves and market share gains.",True,llama::llama3:70b,evasion,qa_text,"{
+""label"": 1,
+""risk_score"": 80,
+""rationale"": ""Evasive and indirect responses from executives, particularly in addressing inventory reserves and market share gains.""
+}"
+T00064,COOK,1,0,20,The language is direct and ordinary with no suspicious or evasive responses.,True,llama::llama3:70b,evasion,qa_text,"{""label"": 0, ""risk_score"": 20, ""rationale"": ""The language is direct and ordinary with no suspicious or evasive responses.""}"
+T00055,XGN,1,0,30,"The language is generally direct and responsive, with some minor hedging.",True,llama::llama3:70b,evasion,qa_text,"{
+  ""label"": 0,
+  ""risk_score"": 30,
+  ""rationale"": ""The language is generally direct and responsive, with some minor hedging.""
+}"
+C00129,DDD,0,0,20,"The language is direct, ordinary, and not especially suspicious.",True,llama::llama3:70b,evasion,qa_text,"{""label"": 0, ""risk_score"": 20, ""rationale"": ""The language is direct, ordinary, and not especially suspicious.""}"
+T00049,VERI,1,1,80,"Evasive and indirect responses from executives, especially on PandoLogic's revenue contribution and profitability.",True,llama::llama3:70b,evasion,qa_text,"{
+  ""label"": 1,
+  ""risk_score"": 80,
+  ""rationale"": ""Evasive and indirect responses from executives, especially on PandoLogic's revenue contribution and profitability.""
+}"
+T00058,LZ,1,0,30,The language is direct and ordinary with no suspicious evasiveness or hedging.,True,llama::llama3:70b,evasion,qa_text,"{""label"": 0, ""risk_score"": 30, ""rationale"": ""The language is direct and ordinary with no suspicious evasiveness or hedging.""}"
+C00125,PAY,0,1,80,"Evasive and indirect answers, unusual hedging, and defensive language indicate elevated risk of future financial restatement.",True,llama::llama3:70b,evasion,qa_text,"{
+  ""label"": 1,
+  ""risk_score"": 80,
+  ""rationale"": ""Evasive and indirect answers, unusual hedging, and defensive language indicate elevated risk of future financial restatement.""
+}"
+C00121,VIPS,0,1,80,"Evasive and indirect responses from the executive, lack of directness and unusual hedging.",True,llama::llama3:70b,evasion,qa_text,"{
+""label"": 1,
+""risk_score"": 80,
+""rationale"": ""Evasive and indirect responses from the executive, lack of directness and unusual hedging.""
+}"
+C00132,NCR,0,0,30,The language is direct and ordinary with some cautionary tone.,True,llama::llama3:70b,evasion,qa_text,"{""label"": 0, ""risk_score"": 30, ""rationale"": ""The language is direct and ordinary with some cautionary tone.""}"
+C00123,FRSH,0,0,20,"The language is direct, ordinary, and not especially suspicious.",True,llama::llama3:70b,evasion,qa_text,"{""label"": 0, ""risk_score"": 20, ""rationale"": ""The language is direct, ordinary, and not especially suspicious.""}"
+C00114,AMWL,0,0,20,"The language is direct, ordinary, and not especially suspicious.",True,llama::llama3:70b,evasion,qa_text,"{""label"": 0, ""risk_score"": 20, ""rationale"": ""The language is direct, ordinary, and not especially suspicious.""}"
+T00066,SITM,1,0,20,"The language is direct, ordinary, and not especially suspicious.",True,llama::llama3:70b,section_aware,scripted_text,"{
+  ""label"": 0,
+  ""risk_score"": 20,
+  ""rationale"": ""The language is direct, ordinary, and not especially suspicious.""
+}"
+C00102,CARG,0,1,80,"The prepared remarks are overly optimistic and forward-looking, acting as a smokescreen for underlying issues.",True,llama::llama3:70b,section_aware,scripted_text,"{""label"": 1, ""risk_score"": 80, ""rationale"": ""The prepared remarks are overly optimistic and forward-looking, acting as a smokescreen for underlying issues.""}"
+T00057,RH,1,1,90,"The prepared remarks are overly promotional and forward-looking, with an unusual emphasis on luxury branding and lifestyle experiences.",True,llama::llama3:70b,section_aware,scripted_text,"{""label"": 1, ""risk_score"": 90, ""rationale"": ""The prepared remarks are overly promotional and forward-looking, with an unusual emphasis on luxury branding and lifestyle experiences.""}"
+C00098,PAAS,0,0,20,The language is direct and ordinary.,True,llama::llama3:70b,section_aware,scripted_text,"{""label"": 0, ""risk_score"": 20, ""rationale"": ""The language is direct and ordinary.""}"
+C00110,PPL,0,0,20,"The language is direct, ordinary, and not especially suspicious.",True,llama::llama3:70b,section_aware,scripted_text,"{""label"": 0, ""risk_score"": 20, ""rationale"": ""The language is direct, ordinary, and not especially suspicious.""}"
+C00128,AGO,0,0,20,"The language is direct, ordinary, and not especially suspicious.",True,llama::llama3:70b,section_aware,scripted_text,"{
+  ""label"": 0,
+  ""risk_score"": 20,
+  ""rationale"": ""The language is direct, ordinary, and not especially suspicious.""
+}"
+C00097,LCTX,0,1,80,The prepared remarks are overly optimistic and lack concrete details.,True,llama::llama3:70b,section_aware,scripted_text,"{""label"": 1, ""risk_score"": 80, ""rationale"": ""The prepared remarks are overly optimistic and lack concrete details.""}"
+C00124,CPT,0,0,20,"The language is direct, ordinary, and not especially suspicious.",True,llama::llama3:70b,section_aware,scripted_text,"{""label"": 0, ""risk_score"": 20, ""rationale"": ""The language is direct, ordinary, and not especially suspicious.""}"
+C00130,LDI,0,1,80,"The prepared remarks are overly optimistic and forward-looking, potentially masking underlying issues.",True,llama::llama3:70b,section_aware,scripted_text,"{
+""label"": 1,
+""risk_score"": 80,
+""rationale"": ""The prepared remarks are overly optimistic and forward-looking, potentially masking underlying issues.""
+}"
+C00119,IAS,0,0,20,The language is direct and ordinary.,True,llama::llama3:70b,section_aware,scripted_text,"{""label"": 0, ""risk_score"": 20, ""rationale"": ""The language is direct and ordinary.""}"
+T00063,DH,1,1,80,"The prepared remarks are overly optimistic and forward-looking, acting as a smokescreen for underlying issues.",True,llama::llama3:70b,section_aware,scripted_text,"{""label"": 1, ""risk_score"": 80, ""rationale"": ""The prepared remarks are overly optimistic and forward-looking, acting as a smokescreen for underlying issues.""}"
+T00065,LOVE,1,0,20,"The language is direct, ordinary, and not especially suspicious.",True,llama::llama3:70b,section_aware,scripted_text,"{""label"": 0, ""risk_score"": 20, ""rationale"": ""The language is direct, ordinary, and not especially suspicious.""}"
+C00115,TEX,0,1,80,"The prepared remarks are overly optimistic and forward-looking, acting as a smokescreen for underlying issues.",True,llama::llama3:70b,section_aware,scripted_text,"{""label"": 1, ""risk_score"": 80, ""rationale"": ""The prepared remarks are overly optimistic and forward-looking, acting as a smokescreen for underlying issues.""}"
+T00062,CGC,1,0,20,"The language is direct, ordinary, and not especially suspicious.",True,llama::llama3:70b,section_aware,scripted_text,"{
+  ""label"": 0,
+  ""risk_score"": 20,
+  ""rationale"": ""The language is direct, ordinary, and not especially suspicious.""
+}"
+C00113,CLF,0,1,80,"The prepared remarks are overly optimistic and contain vague language, potentially masking underlying issues.",True,llama::llama3:70b,section_aware,scripted_text,"{""label"": 1, ""risk_score"": 80, ""rationale"": ""The prepared remarks are overly optimistic and contain vague language, potentially masking underlying issues.""}"
+T00050,FOUR,1,1,80,The prepared remarks are overly optimistic and lack transparency.,True,llama::llama3:70b,section_aware,scripted_text,"{""label"": 1, ""risk_score"": 80, ""rationale"": ""The prepared remarks are overly optimistic and lack transparency.""}"
+C00131,ALGN,0,0,20,"The language is direct, ordinary, and not especially suspicious.",True,llama::llama3:70b,section_aware,scripted_text,"{
+  ""label"": 0,
+  ""risk_score"": 20,
+  ""rationale"": ""The language is direct, ordinary, and not especially suspicious.""
+}"
+T00060,LZ,1,1,80,"The language is overly optimistic and forward-looking, with a focus on product-driven share gains and cost reductions.",True,llama::llama3:70b,section_aware,scripted_text,"{
+""label"": 1,
+""risk_score"": 80,
+""rationale"": ""The language is overly optimistic and forward-looking, with a focus on product-driven share gains and cost reductions.""
+}"
+C00116,CRSR,0,1,80,"The prepared remarks are overly optimistic and forward-looking, potentially masking underlying issues.",True,llama::llama3:70b,section_aware,scripted_text,"{
+""label"": 1,
+""risk_score"": 80,
+""rationale"": ""The prepared remarks are overly optimistic and forward-looking, potentially masking underlying issues.""
+}"
+T00064,COOK,1,1,80,"The prepared remarks are overly defensive and vague, acting as a smokescreen for underlying issues.",True,llama::llama3:70b,section_aware,scripted_text,"{""label"": 1, ""risk_score"": 80, ""rationale"": ""The prepared remarks are overly defensive and vague, acting as a smokescreen for underlying issues.""}"
+T00055,XGN,1,1,80,The prepared remarks are overly optimistic and vague about the company's financial performance.,True,llama::llama3:70b,section_aware,scripted_text,"{""label"": 1, ""risk_score"": 80, ""rationale"": ""The prepared remarks are overly optimistic and vague about the company's financial performance.""}"
+C00129,DDD,0,1,80,"The prepared remarks are overly optimistic and forward-looking, acting as a smokescreen for underlying issues.",True,llama::llama3:70b,section_aware,scripted_text,"{""label"": 1, ""risk_score"": 80, ""rationale"": ""The prepared remarks are overly optimistic and forward-looking, acting as a smokescreen for underlying issues.""}"
+T00049,VERI,1,1,80,"The prepared remarks are overly optimistic and forward-looking, acting as a smokescreen for underlying issues.",True,llama::llama3:70b,section_aware,scripted_text,"{""label"": 1, ""risk_score"": 80, ""rationale"": ""The prepared remarks are overly optimistic and forward-looking, acting as a smokescreen for underlying issues.""}"
+T00058,LZ,1,1,80,"The language is overly optimistic and forward-looking, with a focus on product-driven share gains and cost reductions.",True,llama::llama3:70b,section_aware,scripted_text,"{""label"": 1, ""risk_score"": 80, ""rationale"": ""The language is overly optimistic and forward-looking, with a focus on product-driven share gains and cost reductions.""}"
+C00125,PAY,0,1,80,"The prepared remarks are overly optimistic and vague, acting as a smokescreen for underlying issues.",True,llama::llama3:70b,section_aware,scripted_text,"{
+""label"": 1,
+""risk_score"": 80,
+""rationale"": ""The prepared remarks are overly optimistic and vague, acting as a smokescreen for underlying issues.""
+}"
+C00121,VIPS,0,0,20,"The language is direct and ordinary, with no especially suspicious or evasive tone.",True,llama::llama3:70b,section_aware,scripted_text,"{""label"": 0, ""risk_score"": 20, ""rationale"": ""The language is direct and ordinary, with no especially suspicious or evasive tone.""}"
+C00132,NCR,0,1,80,"The prepared remarks are overly optimistic and forward-looking, acting as a smokescreen for underlying issues.",True,llama::llama3:70b,section_aware,scripted_text,"{""label"": 1, ""risk_score"": 80, ""rationale"": ""The prepared remarks are overly optimistic and forward-looking, acting as a smokescreen for underlying issues.""}"
+C00123,FRSH,0,0,20,"The language is direct, ordinary, and not especially suspicious.",True,llama::llama3:70b,section_aware,scripted_text,"{
+  ""label"": 0,
+  ""risk_score"": 20,
+  ""rationale"": ""The language is direct, ordinary, and not especially suspicious.""
+}"
+C00114,AMWL,0,1,80,"The prepared remarks are unusually upbeat and forward-looking, acting as a smokescreen for underlying issues.",True,llama::llama3:70b,section_aware,scripted_text,"{
+""label"": 1,
+""risk_score"": 80,
+""rationale"": ""The prepared remarks are unusually upbeat and forward-looking, acting as a smokescreen for underlying issues.""
+}"
