@@ -39,7 +39,7 @@ PY
 
 export PYTHONUNBUFFERED=1
 
-ARCHS=(bert-large roberta)
+ARCHS=(bert-large)
 SEEDS=(0 1 2 7 13 42 100 2024 2025 2026
            11 22 33 44 55 66 77 88 99 111
            123 234 345 456 567 678 789 890 901 999)
