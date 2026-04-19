@@ -1,0 +1,2 @@
+model,condition,seed,best_epoch,best_val_auroc,auroc,ap,f1,precision,recall,accuracy,tp,fp,tn,fn,n,n_pos,auroc_ci_lo,auroc_ci_hi
+roberta,qa,33,2,0.6333333333333333,0.38125,0.4238056943056943,0.0,0.0,0.0,0.6153846153846154,0,0,16,10,26,10,0.14359375,0.6376562499999999
