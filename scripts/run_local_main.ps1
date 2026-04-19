@@ -13,7 +13,7 @@ $ErrorActionPreference = "Continue"
 $headerSeeds     = @(0, 1, 2, 7, 13, 42, 100, 2024, 2025, 2026,
                      11, 22, 33, 44, 55, 66, 77, 88, 99, 111,
                      123, 234, 345, 456, 567, 678, 789, 890, 901, 999)  # 30 seeds
-$ablationSeeds   = @(0, 1, 42)                                           # 3 seeds
+$ablationSeeds   = @(0, 1, 42, 2024, 55, 123, 345, 789, 999, 111)                                           # 3 seeds
 $conditions      = @("full", "scripted", "qa")
 
 function Run-One($args_array, $outDir) {
