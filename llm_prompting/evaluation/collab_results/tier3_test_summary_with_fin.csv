@@ -1,0 +1,5 @@
+model,condition,selected_prompt,parse_rate,n_total,n_valid,AUROC,PR_AUC,Precision,Recall,F1
+llama::llama3,qa_text,section_aware,1.0,29,29,0.5,0.3793103448275862,0.3793103448275862,1.0,0.55
+llama::llama3,scripted_text,section_aware,1.0,29,29,0.5454545454545454,0.4357366771159874,0.3793103448275862,1.0,0.55
+fingpt::FinGPT/fingpt-sentiment_llama2-13b_lora,qa_text,evasion,0.034482758620689655,29,1,,,,,
+fingpt::FinGPT/fingpt-sentiment_llama2-13b_lora,scripted_text,section_aware,0.034482758620689655,29,1,,,,,

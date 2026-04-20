@@ -1,0 +1,5 @@
+prompt_name,parse_rate,n_total,n_valid,AUROC,PR_AUC,Precision,Recall,F1,model,condition
+evasion,1.0,30,30,0.5825,0.39666666666666667,0.16666666666666666,0.1,0.125,llama::llama3:70b,qa_text
+section_aware,1.0,30,30,0.45000000000000007,0.32,0.2,0.1,0.13333333333333333,llama::llama3:70b,qa_text
+section_aware,1.0,30,30,0.65,0.42666666666666664,0.4666666666666667,0.7,0.56,llama::llama3:70b,scripted_text
+evasion,1.0,30,30,0.5925,0.4025641025641026,0.2,0.1,0.13333333333333333,llama::llama3:70b,scripted_text

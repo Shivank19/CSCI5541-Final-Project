@@ -1,0 +1,13 @@
+prompt_name,parse_rate,n_total,n_valid,AUROC,PR_AUC,Precision,Recall,F1,model,condition
+section_aware,1.0,30,30,0.5,0.3333333333333333,0.3333333333333333,1.0,0.5,llama::llama3,qa_text
+evasion,1.0,30,30,0.3875,0.2982758620689655,0.3333333333333333,1.0,0.5,llama::llama3,qa_text
+section_aware,1.0,30,30,0.525,0.3448275862068966,0.3448275862068966,1.0,0.5128205128205128,llama::llama3,scripted_text
+evasion,1.0,30,30,0.4624999999999999,0.3393227513227513,0.3703703703703703,1.0,0.5405405405405406,llama::llama3,scripted_text
+evasion,0.0,30,0,,,,,,fingpt::FinGPT/fingpt-sentiment_llama2-13b_lora,qa_text
+section_aware,0.0,30,0,,,,,,fingpt::FinGPT/fingpt-sentiment_llama2-13b_lora,qa_text
+section_aware,0.0333333333333333,30,1,,,,,,fingpt::FinGPT/fingpt-sentiment_llama2-13b_lora,scripted_text
+evasion,0.0,30,0,,,,,,fingpt::FinGPT/fingpt-sentiment_llama2-13b_lora,scripted_text
+evasion,1.0,30,30,0.5825,0.3966666666666666,0.1666666666666666,0.1,0.125,llama::llama3:70b,qa_text
+section_aware,1.0,30,30,0.45,0.32,0.2,0.1,0.1333333333333333,llama::llama3:70b,qa_text
+section_aware,1.0,30,30,0.65,0.4266666666666666,0.4666666666666667,0.7,0.56,llama::llama3:70b,scripted_text
+evasion,1.0,30,30,0.5925,0.4025641025641026,0.2,0.1,0.1333333333333333,llama::llama3:70b,scripted_text
