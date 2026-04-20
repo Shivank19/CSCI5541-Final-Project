@@ -1,0 +1,20 @@
+{
+  "model": "finbert",
+  "condition": "full",
+  "seed": 123,
+  "epochs": 30,
+  "lr": 0.001,
+  "weight_decay": 0.01,
+  "warmup_ratio": 0.1,
+  "max_length": 512,
+  "per_device_batch_size": 8,
+  "grad_accum_steps": 1,
+  "grad_checkpointing": false,
+  "patience": 5,
+  "data_dir": "data/splits",
+  "output_dir": "runs/finbert_full_s123_frozen",
+  "bf16": true,
+  "smoke_test": false,
+  "freeze_backbone": true,
+  "truncation": "tail"
+}

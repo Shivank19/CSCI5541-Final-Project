@@ -1,0 +1,2 @@
+model,condition,seed,best_epoch,best_val_auroc,auroc,ap,f1,precision,recall,accuracy,tp,fp,tn,fn,n,n_pos,auroc_ci_lo,auroc_ci_hi
+distilbert,scripted,2024,8,0.685,0.4848484848484848,0.38061779943930973,0.38095238095238093,0.4,0.36363636363636365,0.5517241379310345,4,6,12,7,29,11,0.25757575757575757,0.7021464646464645

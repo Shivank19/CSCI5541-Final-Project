@@ -1,0 +1,2 @@
+model,condition,seed,best_epoch,best_val_auroc,auroc,ap,f1,precision,recall,accuracy,tp,fp,tn,fn,n,n_pos,auroc_ci_lo,auroc_ci_hi
+finbert,qa,77,1,0.6444444444444445,0.40625000000000006,0.39884363824581215,0.2,0.2,0.2,0.38461538461538464,2,8,8,8,26,10,0.1625,0.6376562499999998
